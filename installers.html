@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Installer Finder - BoostHub</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, footer { background: #222; color: white; padding: 1em; }
+    nav a { color: white; margin: 0 1em; text-decoration: none; }
+    main { padding: 2em; max-width: 900px; margin: auto; }
+    .installer { border: 1px solid #ccc; padding: 1em; margin-bottom: 1em; }
+    .installer h3 { margin-top: 0; }
+    input[type="text"] { padding: 0.5em; width: 200px; }
+    button { background: #0066cc; color: white; border: none; padding: 0.5em 1em; cursor: pointer; }
+    button:hover { background: #0055aa; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>BoostHub</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop Kits</a>
+      <a href="installers.html">Installer Finder</a>
+      <a href="#">Dashboard</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+  <main>
+    <h2>Find Certified Installers Near You</h2>
+    <input type="text" id="zipInput" placeholder="Enter Zip Code" />
+    <button onclick="searchInstallers()">Search</button>
+    <div id="results"></div>
+  </main>
+  <footer>
+    <p>&copy; 2025 BoostHub. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const installers = [
+      { name: "Torque Performance", city: "Denver", state: "CO", zip: "80203", phone: "720-555-1234" },
+      { name: "Boost Garage", city: "Austin", state: "TX", zip: "78701", phone: "512-555-5678" },
+      { name: "Turbo Pros", city: "Los Angeles", state: "CA", zip: "90001", phone: "310-555-9012" },
+      { name: "Power Tune", city: "New York", state: "NY", zip: "10001", phone: "212-555-3456" }
+    ];
+
+    function searchInstallers() {
+      const zip = document.getElementById('zipInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      resultsDiv.innerHTML = '';
+      if (!zip) {
+        resultsDiv.innerHTML = '<p>Please enter a zip code.</p>';
+        return;
+      }
+      const found = installers.filter(i => i.zip.startsWith(zip));
+      if (found.length === 0) {
+        resultsDiv.innerHTML = '<p>No installers found near that zip code.</p>';
+        return;
+      }
+      found.forEach(installer => {
+        const div = document.createElement('div');
+        div.className = 'installer';
+        div.innerHTML = `<h3>${installer.name}</h3>
+          <p>${installer.city}, ${installer.state}</p>
+          <p>Phone: ${installer.phone}</p>`;
+        resultsDiv.appendChild(div);
+      });
+    }
+  </script>
+</body>
+</html>
